@@ -11,12 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('Post', function (Blueprint $table) {
+        Schema::create('community_links', function (Blueprint $table) {
             $table->id();
             $table->integer('user_id');
             $table->integer('channel_id');
-            $table->integer('title');
-            $table->integer('links');
+            $table->string('title');
+            $table->string('link');
             $table->boolean('approved')->default(0);
             $table->timestamps();
         });
@@ -27,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('Post');
+        Schema::dropIfExists('community_links');
     }
 };

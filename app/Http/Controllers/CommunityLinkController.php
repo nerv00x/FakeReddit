@@ -4,12 +4,14 @@ namespace App\Http\Controllers;
 
 use App\Models\CommunityLink;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class CommunityLinkController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
+   
     
         public function index() {
             $links = CommunityLink::paginate(25);
@@ -30,7 +32,36 @@ class CommunityLinkController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // public function store(Request $request) {
+           
+        /*   EJERCICIOS ANTERIORES    */
+
+        //return response('Respuesta', 200);  
+        //dd($request);   
+        
+        request()->merge(['user_id' => Auth::id(), 'channel_id' => 1 ]);
+        CommunityLink::create($request->all());
+        $data = $request->validate([
+
+            'title' => 'required|max:255',
+           
+           
+           
+            'link' => 'required|unique:community_links|url|max:255', 
+           
+           
+           
+            ]);
+           
+            $data['user_id'] = Auth::id();
+           
+            $data['channel_id'] = 1;
+           
+            CommunityLink::create($data);
+           
+           
+        return back();
+      
     }
 
     /**
@@ -64,4 +95,6 @@ class CommunityLinkController extends Controller
     {
         //
     }
+
+    
 }

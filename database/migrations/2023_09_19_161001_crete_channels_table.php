@@ -13,9 +13,9 @@ return new class extends Migration
     {
         Schema::create('channels', function (Blueprint $table) {
             $table->id();
-            $table->integer('title');
-            $table->integer('slug')->unique();
-            $table->integer('color');
+            $table->string('title');
+            $table->string('slug')->unique();
+            $table->string('color');
             $table->timestamps();
         });
     }

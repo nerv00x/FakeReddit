@@ -1,3 +1,4 @@
+<link rel="stylesheet" href="/css/style.css">
 <div class="card">
     <div class="card-header">
         <h3>Contribute a link</h3>
@@ -8,7 +9,7 @@
             <div class="form-group">
                 <label for="title">Title:</label>
                 <input type="text" class="form-control" id="title" name="title"
-                    placeholder="What is the title of your article?" {{old('title')}}>
+                    placeholder="What is the title of your article?" {{ old('title') }}>
                 @error('title')
                     <div class="alert alert-danger">{{ $message }}</div>
                 @enderror
@@ -16,7 +17,8 @@
 
             <div class="form-group">
                 <label for="link">Link:</label>
-                <input type="text" class="form-control" id="link" name="link" placeholder="What is the URL?" {{old('title')}}>
+                <input type="text" class="form-control" id="link" name="link" placeholder="What is the URL?"
+                    {{ old('title') }}>
                 @error('link')
                     <div class="alert alert-danger">{{ $message }}</div>
                 @enderror
@@ -43,4 +45,15 @@
             </div>
         </form>
     </div>
+
+    @if (count($links) > 0)
+        <!-- Aquí muestras los enlaces aprobados -->
+        <ul>
+            @foreach ($links as $link)
+                <li>{{ $link->title }}</li>
+            @endforeach
+        </ul>
+    @else
+        <p>No approved contributions yet</p>
+    @endif
 </div>

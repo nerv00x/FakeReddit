@@ -94,3 +94,4 @@ Route::get('/fecha', function () {
 
 Route::get('community', [App\Http\Controllers\CommunityLinkController::class, 'index']);
 Route::post('community', [App\Http\Controllers\CommunityLinkController::class, 'store'])->middleware('auth','verified' );
+Route::get('community/{channel:slug}', [App\Http\Controllers\CommunityLinkController::class, 'index']);

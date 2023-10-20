@@ -77,51 +77,16 @@
             </div>
         </nav>
 
-        <main class="py-4">
-            @yield('content')
-        </main>
+        
     </div>
-    <!DOCTYPE html>
 
-    <html lang="en">
+    <div id="app">
 
-    <head>
+        @include('flash-message')
+        @yield('content')
 
-        <meta charset="utf-8">
+    </div>
 
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-
-        <!-- Styles -->
-
-        <link href="/css/app.css" rel="stylesheet">
-
-    </head>
-
-    <body>
-
-
-
-        <div id="app">
-
-            @include('flash-message')
-
-
-
-            @yield('content')
-
-        </div>
-
-
-
-        <!-- Scripts -->
-
-        <script src="/js/app.js"></script>
-
-    </body>
-
-    </html>
 </body>
 
 </html>

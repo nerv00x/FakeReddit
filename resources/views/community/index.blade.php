@@ -5,7 +5,16 @@
         <div class="row">
             {{-- Left colum to show all the links in the DB --}}
             <div class="col-md-8">
-                <h1>Community</h1>
+                @php
+                        $selectedChannel = request('channel.slug');
+                    @endphp
+                    <h1><a href="http://fakereddit.test/community">Community</a></h1>
+                    @if ($selectedChannel)
+                        <h1>Listado de Links de {{ $selectedChannel }}</h1>
+                    @else
+                        <h1>Listado de Links</h1>
+                    @endif
+                    
                 @foreach ($links as $link)
                     <li>
                         <a href="{{ $link->link }}" target="_blank">
@@ -13,7 +22,7 @@
                         </a>
                         <small>Contributed by: {{ $link->creator->name }} {{ $link->updated_at->diffForHumans() }}</small>
                         <span class="label label-default" style="background: {{ $link->channel->color }}">
-                            {{ $link->channel->title }}
+                            <a class="text-decoration-none" href="/community/{{ $link->channel->slug }}">{{ $link->channel->title }}</a>
                             </span>
                     </li>
                 @endforeach

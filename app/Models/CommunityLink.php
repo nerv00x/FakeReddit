@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Models;
+
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -9,9 +10,14 @@ class CommunityLink extends Model
 {
 
     use HasFactory;
+    public function users()
+    {
+        return $this->belongsToMany(User::class, 'community_link_users');
+    }
     protected $fillable = [
         'user_id', 'channel_id', 'title', 'link', 'approved'
     ];
+
 
     public function creator()
     {
@@ -33,4 +39,5 @@ class CommunityLink extends Model
         }
         return false;
     }
+
 }

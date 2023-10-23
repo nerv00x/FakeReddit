@@ -59,27 +59,16 @@ class CommunityLinkController extends Controller
 
         //return response('Respuesta', 200);  
         //dd($request);   
-        //dd($request);   
+        //dd($request); 
+        $data = $request->validated();  
         $approved = Auth::user()->trusted ? true : false;
         $data['approved'] = $approved;
         $link = new CommunityLink();
         $link->user_id = Auth::id();
 
-
-
-
-        request()->merge(['user_id' => Auth::id()]);
-
-        $data = $request->validate([
-
-
-
-
-        ]);
-
         $data['user_id'] = Auth::id();
+        dd($data);
         CommunityLink::create($data);
-
 
         return back();
     }

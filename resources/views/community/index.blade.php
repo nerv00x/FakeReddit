@@ -25,6 +25,7 @@
                             <a class="text-decoration-none" href="/community/{{ $link->channel->slug }}">{{ $link->channel->title }}</a>
                             </span>
                     </li>
+                    {{$link->users()->count()}} 
                 @endforeach
 
             </div>

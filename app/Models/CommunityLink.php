@@ -27,6 +27,7 @@ class CommunityLink extends Model
     public function channel()
     {
         return $this->belongsTo(Channel::class);
+
     }
     protected static function hasAlreadyBeenSubmitted($link)
     {

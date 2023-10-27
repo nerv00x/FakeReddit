@@ -12,4 +12,20 @@ class CommunityLinkUser extends Model
         'user_id',
         'community_link_id'
     ];
+
+
+public function toggle(){
+    if ($this->id) {
+        $this->delete();
+    } else {
+        $this->save();
+    }
+    return back();
+}
+    
+
+
+
+
+
 }

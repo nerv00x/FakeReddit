@@ -11,6 +11,7 @@ class CommunityLinkUserController extends Controller
 {
     public function store(CommunityLink $link)
     {
+        
         CommunityLinkUser::firstOrNew([
             'user_id' => Auth::id(),
             'community_link_id' => $link->id

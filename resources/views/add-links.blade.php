@@ -1,4 +1,5 @@
-<link rel="stylesheet" href="/css/style.css">
+<link rel="stylesheet" href="./css/style.css">
+<script src="https://kit.fontawesome.com/617dc70eca.js" crossorigin="anonymous"></script>
 <div class="card">
     <div class="card-header">
         <h3>Contribute a link</h3>

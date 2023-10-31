@@ -2,38 +2,40 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\CommunityLinkForm;
-use App\Queries\CommunityLinksQuery;
-use App\Models\Item;
-use App\Models\Channel;
+
+namespace App\Http\Controllers;
+
 use App\Models\CommunityLink;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Models\Channel;
+use App\Http\Requests\CommunityLinkForm;
+use App\Queries\CommunityLinksQuery;
+
+
 
 class CommunityLinkController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */public function index(Channel $channel = null)
+    public function index(Channel $channel = null)
     {
-
-        $channels = Channel::orderBy('title', 'asc')->get();
-        $query = new CommunityLinksQuery;
-
-        if (request()->exists('popular')) {
-            $links = $query->getMostPopular();
-        } else {
-            if ($channel == null) {
-                $links = $query->getAll();
-            } else {
+        $query = new CommunityLinksQuery();
+        if ($channel != null) {
+            if (request()->exists('popular')) {
+                $links = $query->getByChannelPopular($channel);
+            }else {
                 $links = $query->getByChannel($channel);
             }
+        }else if (request()->exists('popular')) {
+            $links = $query->getMostPopular();
+        }else if(request()->exists('search')){
+            $links = $query->getBySearch(trim(request()->get('search')));
+        }else{
+            $links = $query->getAll();
         }
+        $channels = Channel::orderBy('title','asc')->get();
+        return view('community/index', compact('links','channels', 'channel'));
+    
 
-
-        return view('community/index', compact('links', 'channels'));
-
-        // Obtenemos la lista de todos los canales// 
 }
 
 

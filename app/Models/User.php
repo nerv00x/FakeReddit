@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
@@ -47,6 +48,11 @@ class User extends Authenticatable implements MustVerifyEmail
     public function votes(): BelongsToMany
     {
         return $this->belongsToMany(CommunityLink::class, "community_link_users")->withTimestamps();
+    }
+
+    public function profile(): HasOne
+    {
+        return $this->hasOne(profile::class, "user_id");
     }
 
     public function votedFor(CommunityLink $link)

@@ -11,12 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('community_link_users', function (Blueprint $table) {
+        Schema::create('profiles', function (Blueprint $table) {
             $table->id();
-            $table->integer('user_id');
-            $table->integer('community_link_id');
             $table->timestamps();
-            
+            $table->integer('user_id')->index();
+            $table->string('imageUpload')->nullable;
         });
     }
 
@@ -25,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('community_link_users');
+        Schema::dropIfExists('profiles');
     }
 };

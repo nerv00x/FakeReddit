@@ -28,3 +28,5 @@ Route::get('community', [App\Http\Controllers\CommunityLinkController::class, 'i
 Route::post('community', [App\Http\Controllers\CommunityLinkController::class, 'store'])->middleware('auth','verified' );
 Route::get('community/{channel:slug}', [App\Http\Controllers\CommunityLinkController::class, 'index']);
 Route::post('votes/{link}', [App\Http\Controllers\CommunityLinkUserController::class, 'store']);
+Route::post('profile/store', [App\Http\Controllers\ProfileController::class, 'store'])->middleware('auth')->name("profile/store");
+Route::get('profile/edit', [App\Http\Controllers\ProfileController::class, 'edit'])->middleware('auth')->name("profile");

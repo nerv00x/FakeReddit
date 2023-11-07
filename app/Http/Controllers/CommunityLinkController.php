@@ -18,6 +18,10 @@ class CommunityLinkController extends Controller
 {
     public function index(Channel $channel = null)
     {
+
+
+
+        
         $query = new CommunityLinksQuery();
         if ($channel != null) {
             if (request()->exists('popular')) {

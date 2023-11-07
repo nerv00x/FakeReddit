@@ -6,7 +6,7 @@ use App\Models\profile;
 use Illuminate\Auth\Events\Validated;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-
+use Intervention\Image\Facades\Image;
 class ProfileController extends Controller
 {
     /**
@@ -33,12 +33,18 @@ class ProfileController extends Controller
             'imageUpload' => 'file|image|max:200'
         ]);
 
-        if ($request->imageUpload) {
-            $path = $request->file('imageUpload')->store('images', 'public');
-            Profile::updateOrCreate(
-                ['user_id' => Auth::id()],
-                ['imageUpload' => $path]
-            );
+        if ($request->imageUpload) {$requestImage = $request->file('imageUpload');
+
+            $img = Image::make($requestImage);
+            
+            $img->resize(null, 400, function ($constraint) {
+            $constraint->aspectRatio();
+            $constraint->upsize();
+            });
+            
+            $name = $requestImage->hashName();
+            $path = config('filesystems.disks.public.root') . '/images/' . $name;
+            $img->save($path);
 
             return back()->with('success', 'Imagen subida correctamente');
         } else {

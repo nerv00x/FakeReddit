@@ -77,7 +77,11 @@
                                         {{ __('Profile') }}
                                     </a>
                                     </a>
-                                    <img src="{{url("storage/". Auth::user()->profile->imageUpload)}}" alt="">
+                                    @if (Auth::user()->profile != null)
+                                        <img src="{{ url('storage/' . Auth::user()->profile->imageUpload) }}"
+                                            alt="" width="50px" style="padding-left: 5px">
+                                    @endif
+
 
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                         onclick="event.preventDefault();

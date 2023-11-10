@@ -14,16 +14,31 @@
                 @else
                     <h1>Listado de Links</h1>
                 @endif
-                <ul class="nav">
-                    <li class="nav-item">
-                        <a class="nav-link  {{ request()->exists('popular') ? '' : 'disabled' }}"
-                            href="{{ request()->url() }}">Most recent</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link {{ request()->exists('popular') ? 'disabled' : '' }}" href="?popular">Most
-                            popular</a>
-                    </li>
-                </ul>
+                @can('viewAny', 'App\Models\User')
+                    <ul class="nav">
+                        <li class="nav-item">
+                            <a class="nav-link  {{ request()->exists('popular') ? '' : 'disabled' }}"
+                                href="{{ request()->url() }}">Most recent</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link {{ request()->exists('popular') ? 'disabled' : '' }}" href="?popular">Most
+                                popular</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/users">Dashboard</a>
+                        </li>
+                    </ul>
+                @else
+                    <ul class="nav">
+                        <li class="nav-item">
+                            <a class="nav-link  {{ request()->exists('popular') ? '' : 'disabled' }}"
+                                href="{{ request()->url() }}">Most recent</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link {{ request()->exists('popular') ? 'disabled' : '' }}" href="?popular">Most popular</a>
+                        </li>
+                    </ul>
+                @endcan
                 @foreach ($links as $link)
                     <li>
                         <a href="{{ $link->link }}" target="_blank">
@@ -38,7 +53,7 @@
                                 {{ Auth::guest() ? 'disabled' : '' }}>
                                 {{ $link->users()->count() }}
                                 <i class="fa-regular fa-thumbs-up"></i>
-                            </button>             
+                            </button>
                         </form>
 
                         <span class="label label-default" style="background: {{ $link->channel->color }}">

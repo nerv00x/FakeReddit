@@ -25,3 +25,33 @@ $link = new CommunityLink();
             }
         }
     }
+
+
+
+
+
+ public function creator()
+    {
+        return $this->belongsTo(User::class, 'user_id');
+    }
+    public function channel()
+    {
+        return $this->belongsTo(Channel::class, 'channel_id');
+    }
+    public function users()
+    {
+        return $this->belongsToMany(User::class, 'community_link_users');
+    }
+
+    public function hasAlreadyBeenSubmitted($link)
+    {
+        if ($existing = static::where('link', $link)->first()) {
+            if (Auth::user()->isTrusted() || Auth::user()->isTrusted() == false && $existing['approved'] == 0) {
+                $existing->touch();
+                $existing->save();
+            }
+            return true;
+        }
+        return false;
+    }
+}
